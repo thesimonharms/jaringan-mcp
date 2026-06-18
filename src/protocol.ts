@@ -122,4 +122,12 @@ export const TOOL_DEFINITIONS: McpToolDefinition[] = [
       required: ['url'],
     },
   },
+  {
+    name: 'jrg_list',
+    description: 'List all available Jaringan pages. Returns an array of { slug, title } entries.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+    },
+  },
 ];

@@ -23,6 +23,7 @@ import {
   handleJrgSearch,
   handleJrgAuthList,
   handleJrgView,
+  handleJrgList,
   type McpConfig,
 } from './handlers.js';
 
@@ -93,6 +94,7 @@ const TOOL_HANDLERS: Record<string, ToolHandler> = {
   jrg_search: handleJrgSearch,
   jrg_auth_list: handleJrgAuthList,
   jrg_view: handleJrgView,
+  jrg_list: handleJrgList,
 };
 
 // ── Response Helpers ──────────────────────────────────────────────────

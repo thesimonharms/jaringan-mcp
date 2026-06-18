@@ -70,6 +70,7 @@ Restart Hermes to auto-discover the tools.
 | `jrg_search` | Search local `.jrg` pages under a root directory |
 | `jrg_auth_list` | List all stored Jaringan authentication tokens |
 | `jrg_view` | Render a page as formatted plain text |
+| `jrg_list` | List all available Jaringan pages (slug + title) |
 
 ## Options
 
@@ -92,7 +93,7 @@ AI Agent (Hermes, Claude Code, etc.)
 │     jaringan-mcp server     │
 │                             │
 │  ┌───────────────────────┐  │
-│  │  @jrg-client (lib)    │──│── TCP → JRG server (port 7070/7080)
+│  │  jrg-client (lib)     │──│── TCP → JRG server (port 7070/7080)
 │  └───────────────────────┘  │
 │  ┌───────────────────────┐  │
 │  │  jaringan-browser CLI │──│── inspect / search / auth

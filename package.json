@@ -1,15 +1,17 @@
 {
   "name": "jaringan-mcp",
   "version": "0.1.0",
-  "description": "MCP server for Jaringan (JRG) protocol — fetch, inspect, search, and manage Jaringan pages",
+  "description": "MCP (Model Context Protocol) server for the Jaringan (JRG) protocol — fetch, inspect, search, and manage Jaringan pages from AI agents",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
     "jaringan-mcp": "./dist/index.js"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "LICENSE"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build",
@@ -20,9 +22,20 @@
     "jrg",
     "mcp",
     "protocol",
-    "model-context-protocol"
+    "model-context-protocol",
+    "ai",
+    "agent"
   ],
   "license": "MIT",
+  "author": "Simon Harms",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thesimonharms/jaringan-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thesimonharms/jaringan-mcp/issues"
+  },
+  "homepage": "https://github.com/thesimonharms/jaringan-mcp#readme",
   "dependencies": {
     "jrg-client": "^0.1.0"
   },

@@ -124,10 +124,27 @@ export async function handleJrgInspect(config: McpConfig, args: Record<string, u
   }
 
   try {
-    const json = runBrowser(config, ['inspect', url]);
+    // Normalize bare paths to full JRG URLs for the browser binary
+    const normalized = url.startsWith('jrg://') || config.fileRoot
+      ? url
+      : `jrg://${config.jrgHost ?? 'localhost'}:${config.jrgPort ?? 7070}/${url.replace(/^\//, '')}`;
+    const json = runBrowser(config, ['inspect', normalized]);
     return { content: [{ type: 'text', text: json }] };
   } catch (err: any) {
-    return { content: [{ type: 'text', text: `Error: ${err.message}` }], isError: true };
+    // Fallback: use jrg-client for a page summary
+    try {
+      const client = getClient(config);
+      const page = await client.fetchPage(url);
+      const text = JSON.stringify({
+        title: page.title,
+        tags: page.tags,
+        links: page.links,
+        body: page.body,
+      }, null, 2);
+      return { content: [{ type: 'text', text }] };
+    } catch (err2: any) {
+      return { content: [{ type: 'text', text: `Error: ${err2.message}` }], isError: true };
+    }
   }
 }
 
@@ -166,7 +183,11 @@ export async function handleJrgView(config: McpConfig, args: Record<string, unkn
   }
 
   try {
-    const output = runBrowser(config, ['view', url]);
+    // Normalize bare paths to full JRG URLs for the browser binary
+    const normalized = url.startsWith('jrg://') || config.fileRoot
+      ? url
+      : `jrg://${config.jrgHost ?? 'localhost'}:${config.jrgPort ?? 7070}/${url.replace(/^\//, '')}`;
+    const output = runBrowser(config, ['view', normalized]);
     return { content: [{ type: 'text', text: output }] };
   } catch (err: any) {
     // Fallback: use jrg-client and format the page
@@ -178,5 +199,15 @@ export async function handleJrgView(config: McpConfig, args: Record<string, unkn
     } catch (err2: any) {
       return { content: [{ type: 'text', text: `Error: ${err2.message}` }], isError: true };
     }
+  }
+}
+
+export async function handleJrgList(config: McpConfig, _args: Record<string, unknown>): Promise<ToolResult> {
+  try {
+    const client = getClient(config);
+    const pages = await client.listPages();
+    return { content: [{ type: 'text', text: JSON.stringify(pages, null, 2) }] };
+  } catch (err: any) {
+    return { content: [{ type: 'text', text: `Error: ${err.message}` }], isError: true };
   }
 }
