@@ -1,0 +1,36 @@
+{
+  "name": "jaringan-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Jaringan (JRG) protocol — fetch, inspect, search, and manage Jaringan pages",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "jaringan-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "jaringan",
+    "jrg",
+    "mcp",
+    "protocol",
+    "model-context-protocol"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jrg-client": "file:../jrg-client"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
