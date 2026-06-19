@@ -14,6 +14,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsc",
+    "test": "cobasaja",
     "prepublishOnly": "npm run build",
     "start": "node dist/index.js"
   },

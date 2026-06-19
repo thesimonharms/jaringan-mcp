@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { JrgClient } from 'jrg-client';
 
@@ -52,11 +52,17 @@ function getClient(config: McpConfig, specificRoot?: string): JrgClient {
 function runBrowser(config: McpConfig, args: string[]): string {
   const browser = config.browserPath ?? 'jaringan-browser';
   try {
-    return execSync([browser, ...args].join(' '), {
+    const result = spawnSync(browser, args, {
       encoding: 'utf-8',
       timeout: 10000,
       maxBuffer: 1024 * 1024, // 1MB
-    }).trim();
+    });
+    if (result.error) throw result.error;
+    if (result.status !== 0) {
+      const msg = result.stderr?.trim() || result.stdout?.trim() || `exit code ${result.status}`;
+      throw new Error(`jaringan-browser failed: ${msg}`);
+    }
+    return result.stdout.trim();
   } catch (err: any) {
     const msg = err.stderr?.trim() || err.stdout?.trim() || err.message;
     throw new Error(`jaringan-browser failed: ${msg}`);
