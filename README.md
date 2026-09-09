@@ -1,3 +1,7 @@
+> **Moved.** This GitHub copy is an archive. Use the Forgejo repository.
+>
+> **Canonical repository:** https://git.simonharms.com/thesimonharms/jaringan-mcp
+
 # jaringan-mcp
 
 **MCP (Model Context Protocol) server for the Jaringan (JRG) protocol.** Lets AI agents fetch, inspect, search, and manage Jaringan pages through structured tool calls.
